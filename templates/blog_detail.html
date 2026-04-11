@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ blog.title }} — Faisal Khan{% endblock %}
+
+{% block fonts %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='blog.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+  <!-- ════ HERO ════ -->
+  <div class="detail-hero">
+    <a href="/blogs" class="detail-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Blog
+    </a>
+    <p class="detail-post-id">Post #{{ blog.id }}</p>
+    <h1>{{ blog.title }}</h1>
+    {% if blog.subtitle %}<p class="detail-subtitle">{{ blog.subtitle }}</p>{% endif %}
+  </div>
+
+  <!-- ════ CONTENT ════ -->
+  <div class="detail-container">
+    <div class="detail-card">
+      <div class="detail-card-top"></div>
+      <div class="detail-card-content">
+        <p class="detail-body">{{ blog.body }}</p>
+        <div class="detail-nav">
+          <a href="/blogs" class="prev">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            All Posts
+          </a>
+          <a href="/" class="next">
+            Back to CV
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Faisal Khan. All rights reserved.</p>
+  </footer>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+{% endblock %}

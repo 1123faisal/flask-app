@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog — Faisal Khan{% endblock %}
+
+{% block fonts %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='blog.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+  <!-- ════ HERO ════ -->
+  <div class="blog-hero">
+    <a href="/" class="blog-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to CV
+    </a>
+    <h1>Blog Posts</h1>
+    <p>Thoughts, tutorials &amp; ideas from Faisal Khan</p>
+  </div>
+
+  <!-- ════ GRID ════ -->
+  <div class="blog-grid">
+    {% for blog in blogs %}
+    <article class="blog-card">
+      <div class="blog-card-accent"></div>
+      <div class="blog-card-body">
+        <p class="blog-id">Post #{{ blog.id }}</p>
+        <h2 class="blog-title">{{ blog.title }}</h2>
+        {% if blog.subtitle %}<p class="blog-subtitle">{{ blog.subtitle }}</p>{% endif %}
+        <p class="blog-body">{{ blog.body }}</p>
+      </div>
+      <div class="blog-card-footer">
+        <a href="/blogs/{{ blog.id }}" class="read-more">
+          Read more
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Faisal Khan. All rights reserved.</p>
+  </footer>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+{% endblock %}

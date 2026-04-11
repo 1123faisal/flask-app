@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+
+{% block title %}TinDog — Meet Dogs Near You{% endblock %}
+
+{% block fonts %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='tindog.css') }}" />
+{% endblock %}
+
+{% block content %}
+  <!-- ════ NAVBAR ════ -->
+  <nav class="navbar navbar-expand-md fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">tindog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav gap-md-2">
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">CV</a></li>
+          <li class="nav-item">
+            <a class="nav-link btn-login-nav" href="/login">
+              <i class="bi bi-person-circle"></i> Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════ HERO ════ -->
+  <section id="hero">
+    <div class="hero-blob-clip"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="row align-items-center gy-5">
+
+        <!-- Text -->
+        <div class="col-lg-6" data-aos="fade-right" data-aos-duration="800">
+          <div class="badge-ripple">
+            <i class="bi bi-patch-check-fill"></i> #1 Dog Dating App
+          </div>
+          <h1 class="hero-headline mb-3">Meet new and interesting dogs nearby.</h1>
+          <p class="hero-sub mb-4">TinDog makes it easy to find tail-wagging friends for your pup. Swipe, match, and set up playdates!</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#" class="btn-dark-pill">
+              <i class="bi bi-apple fs-5"></i> App Store
+            </a>
+            <a href="#" class="btn-white-pill">
+              <i class="bi bi-google-play fs-5"></i> Google Play
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
+          <div class="iphone-scene">
+          <div class="iphone">
+            <div class="iphone-inner">
+              <!-- Earpiece + camera -->
+              <div class="iphone-ear">
+                <div class="ear-sensor"></div>
+                <div class="ear-speaker"></div>
+                <div class="ear-camera"></div>
+              </div>
+              <!-- Status bar -->
+              <div class="iphone-status">
+                <span>●●●●○ AT&amp;T &#x1F4F6;</span>
+                <span>5:58 PM</span>
+                <div class="iphone-status-right">
+                  <i class="bi bi-reception-4"></i>
+                  <i class="bi bi-wifi"></i>
+                  <span>55%</span>
+                  <i class="bi bi-battery-half"></i>
+                </div>
+              </div>
+              <!-- App topbar -->
+              <div class="phone-topbar">
+                <div class="topbar-icon"></div>
+                <div class="phone-toggle"><div class="toggle-dot"></div></div>
+                <div class="topbar-icon"></div>
+              </div>
+              <!-- Dog card -->
+              <div class="dog-card">
+                <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80" alt="Buddy" />
+                <div class="dog-card-info">
+                  <strong>Buddy, 3</strong><br>
+                  <span>📍 2 km away</span>
+                </div>
+              </div>
+              <!-- Swipe actions -->
+              <div class="swipe-actions">
+                <div class="swipe-btn" style="background:#fff;color:#f5a623;border:2px solid #ffe8c0;"><i class="bi bi-arrow-counterclockwise"></i></div>
+                <div class="swipe-btn swipe-nope"><i class="bi bi-x-lg"></i></div>
+                <div class="swipe-btn" style="background:#fff;color:#7b5ea7;border:2px solid #e8dcf5;"><i class="bi bi-lightning-fill"></i></div>
+                <div class="swipe-btn swipe-like"><i class="bi bi-heart-fill"></i></div>
+                <div class="swipe-btn" style="background:#fff;color:#00bcd4;border:2px solid #d0f4f8;"><i class="bi bi-person-fill"></i></div>
+              </div>
+              <!-- Physical home button -->
+              <div class="iphone-home">
+                <div class="home-btn"></div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FEATURES ════ -->
+  <section id="features">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+
+        <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-duration="800">
+          <img class="feature-img" src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500&q=80" alt="Happy Dog" />
+        </div>
+
+        <div class="col-lg-6 offset-lg-1" data-aos="fade-left" data-aos-duration="800">
+          <p class="section-eyebrow">Why TinDog?</p>
+          <h2 class="section-heading">Find your pup's <span style="color:var(--pink)">perfect match</span></h2>
+          <p class="text-muted mb-5">We help your furry best friend find the perfect playdate, adventure buddy, or lifelong companion.</p>
+
+          <div class="row g-4">
+            <div class="col-12" data-aos="fade-up" data-aos-delay="0">
+              <div class="d-flex gap-3">
+                <div class="feature-icon-wrap flex-shrink-0"><i class="bi bi-lightning-charge-fill"></i></div>
+                <div>
+                  <p class="feature-title">Easy to Use</p>
+                  <p class="feature-text">Swipe right on dogs your pup might like. It's that simple — even your dog could do it.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+              <div class="d-flex gap-3">
+                <div class="feature-icon-wrap flex-shrink-0"><i class="bi bi-trophy-fill"></i></div>
+                <div>
+                  <p class="feature-title">Elite Clientele</p>
+                  <p class="feature-text">We have the poshest dogs from the best kennels. Only the finest canine companions.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+              <div class="d-flex gap-3">
+                <div class="feature-icon-wrap flex-shrink-0"><i class="bi bi-heart-fill"></i></div>
+                <div>
+                  <p class="feature-title">Guaranteed to Work</p>
+                  <p class="feature-text">Find the perfect match or your money back — tail wags guaranteed, or every treat refunded.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ TESTIMONIALS ════ -->
+  <section id="testimonials">
+    <div class="container text-center">
+      <p class="section-eyebrow" data-aos="fade-up">Testimonials</p>
+      <h2 class="section-heading" data-aos="fade-up" data-aos-delay="50">What the pack is saying</h2>
+
+      <div class="testi-carousel-wrapper mt-4" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Prev arrow (outside cards) -->
+        <button class="testi-arrow" type="button" data-bs-target="#testiCarousel" data-bs-slide="prev">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <div id="testiCarousel" class="carousel slide testi-carousel-inner" data-bs-ride="carousel" data-bs-interval="4000">
+          <div class="carousel-inner">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"My schnauzer Max found his best friend in just two swipes. They go on walks every morning now. TinDog changed our lives!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Sarah" />
+                    <div><p class="testi-name mb-0">Sarah J.</p><p class="testi-breed mb-0">Owner of Max 🐶</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Luna used to be shy around other dogs. After a week on TinDog she had three playdates lined up. Absolutely pawsome!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=100&q=80" alt="Carlos" />
+                    <div><p class="testi-name mb-0">Carlos M.</p><p class="testi-breed mb-0">Owner of Luna 🐕</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Found a doggy daycare group through TinDog. Now Biscuit has six friends and I have free mornings. Win-win!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Priya" />
+                    <div><p class="testi-name mb-0">Priya K.</p><p class="testi-breed mb-0">Owner of Biscuit 🦴</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Rocky used to bark at every dog he saw. TinDog helped him find his crew — now he wags his tail instead of growling!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="James" />
+                    <div><p class="testi-name mb-0">James T.</p><p class="testi-breed mb-0">Owner of Rocky 🐾</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Matched Coco with a golden retriever down the street. They go on trails together every weekend. Best app ever!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80" alt="Amy" />
+                    <div><p class="testi-name mb-0">Amy R.</p><p class="testi-breed mb-0">Owner of Coco 🍫</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"My rescue pup Daisy was so lonely. TinDog found her a playmate within 24 hours. She's a completely different dog now!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=100&q=80" alt="Nina" />
+                    <div><p class="testi-name mb-0">Nina S.</p><p class="testi-breed mb-0">Owner of Daisy 🌼</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"TinDog is genius. My bulldog Bruno found a whole squad. They have a WhatsApp group now — yes, the owners do!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Leo" />
+                    <div><p class="testi-name mb-0">Leo B.</p><p class="testi-breed mb-0">Owner of Bruno 🐕</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Pepper finally has a bestie! They run in the park every Tuesday. TinDog made us all healthier and happier."</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80" alt="Diana" />
+                    <div><p class="testi-name mb-0">Diana M.</p><p class="testi-breed mb-0">Owner of Pepper 🌶️</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Used TinDog to find a doggy swimming buddy for Nemo. They do laps together every Saturday. Absolutely tail-wagging!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=100&q=80" alt="Tom" />
+                    <div><p class="testi-name mb-0">Tom K.</p><p class="testi-breed mb-0">Owner of Nemo 🐠</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Five stars, no question. Mochi went from zero doggy friends to four in one week. She's obsessed with her new pals!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80" alt="Kenji" />
+                    <div><p class="testi-name mb-0">Kenji W.</p><p class="testi-breed mb-0">Owner of Mochi 🍡</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"We moved to a new city and Ginger was heartbroken leaving her friends. TinDog had her matched in 48 hours. Lifesaver!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=100&q=80" alt="Rachel" />
+                    <div><p class="testi-name mb-0">Rachel P.</p><p class="testi-breed mb-0">Owner of Ginger 🍂</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="testi-card text-start">
+                  <div class="testi-stars">★★★★★</div>
+                  <p class="testi-text">"Both my dogs use TinDog now. They matched with the same poodle and now all three are inseparable. 10/10 recommend!"</p>
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="testi-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80" alt="Mark" />
+                    <div><p class="testi-name mb-0">Mark D.</p><p class="testi-breed mb-0">2 happy dogs 🐕🐕</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div><!-- /carousel-inner -->
+        </div><!-- /testiCarousel -->
+
+        <!-- Next arrow (outside cards) -->
+        <button class="testi-arrow" type="button" data-bs-target="#testiCarousel" data-bs-slide="next">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+
+      </div><!-- /testi-carousel-wrapper -->
+
+      <!-- Dots -->
+      <div class="testi-dots" id="testiDots">
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ PRICING ════ -->
+  <section id="pricing">
+    <div class="container text-center">
+      <p class="section-eyebrow" data-aos="fade-up">Pricing</p>
+      <h2 class="section-heading" data-aos="fade-up" data-aos-delay="50">Simple, transparent plans</h2>
+      <div class="row g-4 mt-2 justify-content-center align-items-center">
+
+        <div class="col-md-4 col-lg-3" data-aos="fade-right" data-aos-duration="700">
+          <div class="price-card">
+            <p class="price-tier">Chihuahua</p>
+            <p class="price-amount"><sup>$</sup>0<sub>/mo</sub></p>
+            <ul class="price-features">
+              <li>5 Matches per day</li>
+              <li>Basic Profile</li>
+              <li>Community Access</li>
+            </ul>
+            <a href="#" class="btn-pill-outline">Get Started</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="100">
+          <div class="price-card featured">
+            <p class="price-tier">Labrador</p>
+            <p class="price-amount"><sup>$</sup>15<sub>/mo</sub></p>
+            <ul class="price-features">
+              <li>Unlimited Matches</li>
+              <li>Priority in Search</li>
+              <li>See Who Liked You</li>
+            </ul>
+            <a href="#" class="btn-pill-outline">Get Premium</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3" data-aos="fade-left" data-aos-duration="700">
+          <div class="price-card">
+            <p class="price-tier">Mastiff</p>
+            <p class="price-amount"><sup>$</sup>29<sub>/mo</sub></p>
+            <ul class="price-features">
+              <li>Everything in Labrador</li>
+              <li>Personal Matchmaker</li>
+              <li>VIP Puppy Events</li>
+            </ul>
+            <a href="#" class="btn-pill-outline">Go VIP</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CTA ════ -->
+  <section id="cta" data-aos="fade-up" data-aos-duration="800">
+    <div class="container">
+      <h2 class="fw-black mb-3" style="font-size:clamp(1.8rem,4vw,3rem);">Find the perfect match for your pup today.</h2>
+      <p class="mb-4 opacity-75 fs-5">Download TinDog and start swiping. Tail wags are just a swipe away.</p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="#" class="btn-dark-pill">
+          <i class="bi bi-apple fs-5"></i> App Store
+        </a>
+        <a href="#" class="btn-white-pill">
+          <i class="bi bi-google-play fs-5"></i> Google Play
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="tindog-footer">
+    <p class="mb-0">&copy; <span id="year"></span> TinDog. Made with ❤️ for dogs everywhere. &nbsp;|&nbsp; <a href="/">Back to CV</a></p>
+  </footer>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, easing: 'ease-out-cubic' });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // On mobile: rebuild carousel as 12 individual single-card slides
+    (function rebuildMobileCarousel() {
+      if (window.innerWidth >= 768) return;
+      const carouselEl = document.getElementById('testiCarousel');
+      if (!carouselEl) return;
+
+      // Collect all testi-cards in DOM order
+      const cards = Array.from(carouselEl.querySelectorAll('.testi-card'));
+
+      // Rebuild carousel-inner with one card per slide
+      const inner = carouselEl.querySelector('.carousel-inner');
+      inner.innerHTML = cards.map((card, i) =>
+        `<div class="carousel-item${i === 0 ? ' active' : ''}">
+          <div style="padding:0 4px">${card.outerHTML}</div>
+        </div>`
+      ).join('');
+
+      // Rebuild dots to match 12 slides
+      const dotsContainer = document.getElementById('testiDots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = cards.map((_, i) =>
+          `<button type="button" data-bs-target="#testiCarousel"
+            data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></button>`
+        ).join('');
+      }
+    })();
+
+    // Sync dots with carousel
+    const testiEl = document.getElementById('testiCarousel');
+    if (testiEl) {
+      testiEl.addEventListener('slide.bs.carousel', e => {
+        document.querySelectorAll('#testiDots button').forEach((btn, i) => {
+          btn.classList.toggle('active', i === e.to);
+        });
+      });
+    }
+  </script>
+{% endblock %}
+
+

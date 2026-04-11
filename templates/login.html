@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Login · TinDog{% endblock %}
+
+{% block fonts %}
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+  <div class="login-card">
+    <div class="login-logo">tindog</div>
+    <p class="login-sub">Sign in to find tail-wagging friends 🐾</p>
+
+    {% if error %}
+    <div class="alert-error">
+      <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+      <label class="form-label" for="email">Email</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <input type="email" id="email" name="email" placeholder="you@example.com"
+               value="{{ email or '' }}" required autocomplete="email" />
+      </div>
+
+      <label class="form-label" for="password">Password</label>
+      <div class="input-wrap">
+        <i class="bi bi-lock"></i>
+        <input type="password" id="password" name="password"
+               placeholder="••••••••" required autocomplete="current-password" />
+        <button type="button" class="toggle-pw" id="togglePw" aria-label="Show password" tabindex="-1">
+          <i class="bi bi-eye" id="togglePwIcon"></i>
+        </button>
+      </div>
+
+      <button type="submit" class="btn-login">Sign In</button>
+    </form>
+
+    <div class="login-footer">
+      Don't have an account? <a href="#">Sign up</a> &nbsp;·&nbsp;
+      <a href="/tindog">Back to TinDog</a>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    const togglePw   = document.getElementById('togglePw');
+    const pwInput    = document.getElementById('password');
+    const toggleIcon = document.getElementById('togglePwIcon');
+
+    togglePw.addEventListener('click', () => {
+      const isHidden = pwInput.type === 'password';
+      pwInput.type = isHidden ? 'text' : 'password';
+      toggleIcon.className = isHidden ? 'bi bi-eye-slash' : 'bi bi-eye';
+      togglePw.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+    });
+  </script>
+{% endblock %}
