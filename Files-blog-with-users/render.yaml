@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: flask-blog
+    runtime: python
+    buildCommand: pip install uv && uv sync
+    startCommand: gunicorn main:app
+    envVars:
+      - key: MAIL_ADDRESS
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
