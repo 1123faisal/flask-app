@@ -3,7 +3,7 @@ services:
     name: flask-blog
     runtime: python
     buildCommand: pip install uv && uv sync --frozen
-    startCommand: .venv/bin/gunicorn main:app
+    startCommand: uv run gunicorn main:app
     envVars:
       - key: MAIL_ADDRESS
         sync: false
