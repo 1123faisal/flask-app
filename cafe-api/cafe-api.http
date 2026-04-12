@@ -1,0 +1,30 @@
+### GET random cafe
+GET http://localhost:5000/random
+
+###
+
+### GET all cafes
+GET http://localhost:5000/all
+
+###
+
+### GET search by location
+GET http://localhost:5000/search?loc=Peckham
+
+###
+
+### POST add a cafe
+POST http://localhost:5000/add
+Content-Type: application/x-www-form-urlencoded
+
+name=Test Cafe&map_url=https://maps.google.com&img_url=https://example.com/img.jpg&location=Peckham&seats=20-30&has_toilet=true&has_wifi=true&has_sockets=true&can_take_calls=false&coffee_price=£2.50
+
+###
+
+### PATCH update coffee price
+PATCH http://localhost:5000/update-price/1?new_price=£3.00
+
+###
+
+### DELETE report closed (requires api-key)
+DELETE http://localhost:5000/report-closed/1?api-key=TopSecretAPIKey
