@@ -2,8 +2,9 @@ services:
   - type: web
     name: flask-blog
     runtime: python
-    buildCommand: pip install uv && uv sync
-    startCommand: gunicorn main:app
+    pythonVersion: "3.12"
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: .venv/bin/gunicorn main:app
     envVars:
       - key: MAIL_ADDRESS
         sync: false
