@@ -36,28 +36,31 @@
 
 
 <!--           Comments Area -->
-          <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="col-lg-8 col-md-10 mx-auto" style="margin-top:2.5rem;">
+            <h4 style="font-family:'Playfair Display',serif; margin-bottom:1.5rem; border-bottom:2px solid var(--accent); padding-bottom:0.5rem;">Comments</h4>
             {% if current_user.is_authenticated %}
             {{ ckeditor.load() }}
             {{ ckeditor.config(name='comment') }}
             {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
             {% else %}
-            <p><a href="{{ url_for('login') }}">Log in</a> or <a href="{{ url_for('register') }}">register</a> to leave a comment.</p>
+            <div style="background:#f9f9ff; border-radius:12px; padding:1.25rem; border-left:3px solid var(--accent); margin-bottom:1.5rem;">
+              <p class="mb-0"><a href="{{ url_for('login') }}" style="color:var(--accent); font-weight:600;">Log in</a> or <a href="{{ url_for('register') }}" style="color:var(--accent); font-weight:600;">register</a> to leave a comment.</p>
+            </div>
             {% endif %}
 
-            <ul class="commentList" style="list-style:none; padding:0; margin-top:20px;">
+            <div style="margin-top:2rem;">
               {% for comment in post.comments %}
-              <li style="display:flex; margin-bottom:20px;">
-                <div style="margin-right:15px;">
-                  <img style="width:60px; border-radius:50%;" src="{{ comment.comment_author.email | gravatar }}"/>
-                </div>
+              <div class="comment-item">
+                <img src="{{ comment.comment_author.email | gravatar }}" alt="avatar"/>
                 <div>
-                  <strong>{{ comment.comment_author.name }}</strong>
-                  <p>{{ comment.text|safe }}</p>
+                  <p class="comment-author">{{ comment.comment_author.name }}</p>
+                  <div class="comment-text">{{ comment.text|safe }}</div>
                 </div>
-              </li>
+              </div>
+              {% else %}
+              <p class="text-muted">No comments yet. Be the first to comment!</p>
               {% endfor %}
-            </ul>
+            </div>
           </div>
 
 
