@@ -2,7 +2,6 @@ services:
   - type: web
     name: flask-blog
     runtime: python
-    pythonVersion: "3.12"
     buildCommand: pip install uv && uv sync --frozen
     startCommand: .venv/bin/gunicorn main:app
     envVars:
