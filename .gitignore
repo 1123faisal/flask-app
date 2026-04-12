@@ -14,8 +14,6 @@ build/
 venv/
 env/
 
-# uv
-.python-version
 
 # Environment variables
 .env
