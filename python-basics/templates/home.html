@@ -53,7 +53,7 @@
             <article class="entry">
               <div class="entry-header">
                 <h2>{{ post["content"] | truncate(50, true) }}</h2>
-                <time class="entry-date" datetime="{{ post['date'] }}">{{ post["created"] }}</time>
+                <time class="entry-date" data-ts="{{ post['timestamp'] }}"></time>
               </div>
               <p class="entry-content">{{ post["content"] }}</p>
             </article>
@@ -77,6 +77,20 @@
     </div>
 
     <script>
+      // Format each entry date in the visitor's local timezone.
+      document.querySelectorAll('time[data-ts]').forEach((el) => {
+        const ts = el.dataset.ts;
+        if (!ts) return;
+        const date = new Date(ts);
+        el.dateTime = date.toISOString();
+        el.textContent = date.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
+        });
+      });
+
+      // Character counter.
       const textarea = document.querySelector('.composer textarea');
       const charCount = document.getElementById('char-count');
       if (textarea && charCount) {

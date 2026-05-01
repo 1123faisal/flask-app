@@ -35,12 +35,12 @@ def create_app() -> Flask:
         if db is None:
             raise RuntimeError("Database is not connected.")
 
-        today = datetime.date.today()
+        # Store full UTC timestamp — clients format it in their own timezone.
+        now_utc = datetime.datetime.now(datetime.timezone.utc)
         db.entries.insert_one(
             {
                 "content": content,
-                "created": today.strftime("%b %d"),
-                "date": today.isoformat(),
+                "timestamp": now_utc.isoformat(),
             }
         )
 
