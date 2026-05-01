@@ -147,9 +147,15 @@ def create_app(config: Config | None = None) -> Flask:
         )
         has_more = len(rows) > PAGE_SIZE
         # Convert native datetime → ISO string for template/JS consumption.
+        # MongoDB returns naive datetimes (no tzinfo); explicitly mark as UTC
+        # so the ISO string includes "+00:00" and JavaScript interprets it
+        # correctly as UTC rather than local time.
         for row in rows[:PAGE_SIZE]:
-            if isinstance(row.get("timestamp"), datetime.datetime):
-                row["timestamp"] = row["timestamp"].isoformat()
+            ts = row.get("timestamp")
+            if isinstance(ts, datetime.datetime):
+                if ts.tzinfo is None:
+                    ts = ts.replace(tzinfo=datetime.timezone.utc)
+                row["timestamp"] = ts.isoformat()
         return rows[:PAGE_SIZE], has_more
 
     # -- Routes --------------------------------------------------------------
