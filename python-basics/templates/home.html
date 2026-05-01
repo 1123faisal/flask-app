@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="A simple and elegant {{ name }}" />
-    <title>{{name}}</title>
+    <title>{{ name }}</title>
     <link rel="stylesheet" href="/static/styles.css" />
     <link rel="icon" type="image/svg+xml" href="/static/logo.svg" />
   </head>
@@ -33,21 +33,25 @@
           <p class="notice" role="alert">{{ error }}</p>
           {% endif %}
 
-          <form class="composer" action="/" method="post">
+          <form class="composer" action="/" method="post" id="composer-form">
             <textarea
               name="content"
+              id="composer-textarea"
               placeholder="Write a log for today..."
               required
               minlength="1"
               maxlength="500"
+              aria-label="New entry"
             ></textarea>
             <div class="composer-actions">
-              <span class="char-count"><span id="char-count">0</span>/500</span>
-              <button type="submit">Submit</button>
+              <span class="char-count" aria-live="polite">
+                <span id="char-count">0</span>/500
+              </span>
+              <button type="submit" id="submit-btn">Submit</button>
             </div>
           </form>
 
-          <section class="feed" id="recent">
+          <section class="feed" id="recent" aria-label="Recent entries">
             {% if entries %}
             {% for post in entries %}
             <article class="entry">
@@ -58,6 +62,27 @@
               <p class="entry-content">{{ post["content"] }}</p>
             </article>
             {% endfor %}
+
+            <nav class="pagination" aria-label="Pagination">
+              {% if page > 1 %}
+              <a href="{{ url_for('home', page=page - 1) }}" class="page-btn" rel="prev">
+                &larr; Newer
+              </a>
+              {% else %}
+              <span class="page-btn page-btn--disabled" aria-disabled="true">&larr; Newer</span>
+              {% endif %}
+
+              <span class="page-num">Page {{ page }}</span>
+
+              {% if has_more %}
+              <a href="{{ url_for('home', page=page + 1) }}" class="page-btn" rel="next">
+                Older &rarr;
+              </a>
+              {% else %}
+              <span class="page-btn page-btn--disabled" aria-disabled="true">Older &rarr;</span>
+              {% endif %}
+            </nav>
+
             {% else %}
             <div class="empty-state">
               <p>No entries yet. Start writing to see your logs here!</p>
@@ -77,28 +102,40 @@
     </div>
 
     <script>
-      // Format each entry date in the visitor's local timezone.
-      document.querySelectorAll('time[data-ts]').forEach((el) => {
-        const ts = el.dataset.ts;
-        if (!ts) return;
-        const date = new Date(ts);
-        el.dateTime = date.toISOString();
-        el.textContent = date.toLocaleDateString(undefined, {
-          month: 'short',
-          day: 'numeric',
-          year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
-        });
-      });
+      (() => {
+        // -- Character counter --
+        const textarea = document.getElementById('composer-textarea');
+        const charCount = document.getElementById('char-count');
+        if (textarea && charCount) {
+          charCount.textContent = textarea.value.length;
+          textarea.addEventListener('input', () => {
+            charCount.textContent = textarea.value.length;
+          });
+        }
 
-      // Character counter.
-      const textarea = document.querySelector('.composer textarea');
-      const charCount = document.getElementById('char-count');
-      if (textarea && charCount) {
-        charCount.textContent = textarea.value.length;
-        textarea.addEventListener('input', (e) => {
-          charCount.textContent = e.target.value.length;
+        // -- Loading state on submit --
+        const form = document.getElementById('composer-form');
+        const submitBtn = document.getElementById('submit-btn');
+        if (form && submitBtn) {
+          form.addEventListener('submit', () => {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving…';
+          });
+        }
+
+        // -- Format each entry date in the visitor's local timezone --
+        document.querySelectorAll('time[data-ts]').forEach((el) => {
+          const ts = el.dataset.ts;
+          if (!ts) return;
+          const date = new Date(ts);
+          el.dateTime = date.toISOString();
+          el.textContent = date.toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric',
+            year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
+          });
         });
-      }
+      })();
     </script>
   </body>
 </html>
