@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A simple and elegant {{ name }}" />
+    <title>{{name}}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="/static/logo.svg" />
+  </head>
+  <body>
+    <div class="page">
+      <main class="content">
+        <header class="topbar">
+          <div class="brand">
+            <img
+              src="/static/logo.svg"
+              alt="Microblog logo"
+              width="44"
+              height="44"
+              class="logo"
+            />
+            <span>{{ name }}</span>
+          </div>
+          <nav class="nav" aria-label="Primary navigation">
+            <a href="#recent">Recent</a>
+            <a href="#calendar">Calendar</a>
+          </nav>
+        </header>
+
+        <section class="main">
+          {% if error %}
+          <p class="notice" role="alert">{{ error }}</p>
+          {% endif %}
+
+          <form class="composer" action="/" method="post">
+            <textarea
+              name="content"
+              placeholder="Write a log for today..."
+              required
+              minlength="1"
+              maxlength="500"
+            ></textarea>
+            <div class="composer-actions">
+              <span class="char-count"><span id="char-count">0</span>/500</span>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+
+          <section class="feed" id="recent">
+            {% if entries %}
+            {% for post in entries %}
+            <article class="entry">
+              <div class="entry-header">
+                <h2>{{ post["content"] | truncate(50, true) }}</h2>
+                <time class="entry-date" datetime="{{ post['date'] }}">{{ post["created"] }}</time>
+              </div>
+              <p class="entry-content">{{ post["content"] }}</p>
+            </article>
+            {% endfor %}
+            {% else %}
+            <div class="empty-state">
+              <p>No entries yet. Start writing to see your logs here!</p>
+            </div>
+            {% endif %}
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner">
+          <a href="#">Check out my other projects</a>
+          <a href="#calendar">Calendar</a>
+          <a href="#">How this was made</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const textarea = document.querySelector('.composer textarea');
+      const charCount = document.getElementById('char-count');
+      if (textarea && charCount) {
+        charCount.textContent = textarea.value.length;
+        textarea.addEventListener('input', (e) => {
+          charCount.textContent = e.target.value.length;
+        });
+      }
+    </script>
+  </body>
+</html>
