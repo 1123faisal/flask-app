@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="detail">
+	<a class="back-link" href="{{ url_for('index') }}">← Back to projects</a>
+
+	<figure class="hero">
+		<img src="{{ project.image }}" alt="{{ project.title }} featured image">
+	</figure>
+
+	<div class="detail-grid">
+		<article class="panel content">
+			<p class="category-badge">{{ project.category }}</p>
+			<h2>{{ project.title }}</h2>
+			{% for paragraph in project.description %}
+			<p>{{ paragraph }}</p>
+			{% endfor %}
+		</article>
+
+		<aside class="panel meta">
+			<h3>Technologies used</h3>
+			<ul>
+				{% for tech in project.technologies %}
+				<li><span class="dot" aria-hidden="true"></span>{{ tech }}</li>
+				{% endfor %}
+			</ul>
+			<a class="action-link" href="{{ project.production_url }}" target="_blank" rel="noopener noreferrer">
+				View in production ↗
+			</a>
+		</aside>
+	</div>
+</section>
+{% endblock %}

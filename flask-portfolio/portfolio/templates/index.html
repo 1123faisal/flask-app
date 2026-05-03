@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p class="intro">
+	I build practical products that are easy to use and maintain. Here are selected projects across web development,
+	frontend architecture, and technical writing.
+</p>
+
+<section class="project-grid" aria-label="Project list">
+	{% for project in projects %}
+	<a class="project-card" href="{{ url_for('detail', slug=project.slug) }}">
+		<img src="{{ project.image }}" alt="{{ project.title }} preview image">
+		<div class="project-card-body">
+			<p class="project-category">{{ project.category }}</p>
+			<h2>{{ project.title }}</h2>
+			<p class="project-summary">{{ project.summary }}</p>
+			<span class="cta">Open project <span aria-hidden="true">→</span></span>
+		</div>
+	</a>
+	{% endfor %}
+</section>
+{% endblock %}
