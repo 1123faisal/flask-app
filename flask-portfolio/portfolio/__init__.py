@@ -1,4 +1,15 @@
-from flask import Flask, abort, flash, redirect, render_template, request, session, url_for
+import functools
+
+from flask import (
+    Flask,
+    abort,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -51,6 +62,16 @@ PROJECTS = [
 ]
 
 
+def login_required(route):
+    @functools.wraps(route)
+    def route_wrapper(*args, **kwargs):
+        if not session.get("email"):
+            return redirect(url_for("login"))
+        return route(*args, **kwargs)
+
+    return route_wrapper
+
+
 def find_project_by_slug(slug: str):
     for project in PROJECTS:
         if project["slug"] == slug:
@@ -69,11 +90,11 @@ def index():
 
 
 @app.get("/protected")
+@login_required
 def protected():
-    email = session.get("email")
-    if not email:
-        abort(401)
-    return render_template("protected.html", page_title="Protected", email=email)
+    return render_template(
+        "protected.html", page_title="Protected", email=session.get("email")
+    )
 
 
 @app.get("/signup")
@@ -123,8 +144,8 @@ def logout():
 def about():
     return render_template("about.html", page_title="About")
 
-
 @app.get("/contact")
+@login_required
 def contact():
     return render_template("contact.html", page_title="Contact")
 
