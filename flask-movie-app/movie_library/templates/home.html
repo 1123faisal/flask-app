@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Watchlist Home{% endblock %}
+
+{% block content %}
+<section class="hero hero-grid accent-{{ featured.accent }}">
+    <div class="hero-copy">
+        <p class="eyebrow">Personal cinema archive</p>
+        <h1>Track films with a dashboard that feels more like a magazine than a spreadsheet.</h1>
+        <p class="lede">A design pass across the whole app: landing, discovery, details, and editor views, all tied together with the same visual system.</p>
+
+        <div class="hero-actions">
+            <a class="button button-primary" href="{{ url_for('pages.movies') }}">Browse collection</a>
+            <a class="button button-secondary" href="{{ url_for('pages.new_movie') }}">Open editor</a>
+        </div>
+
+        <div class="stat-row">
+            <article class="stat-card">
+                <span class="stat-label">Tracked</span>
+                <strong>{{ watched_count }}</strong>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Average</span>
+                <strong>{{ average_rating }}/5</strong>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Featured</span>
+                <strong>{{ featured.title }}</strong>
+            </article>
+        </div>
+    </div>
+
+    <div class="feature-panel glass-card">
+        <p class="panel-label">Now spotlighted</p>
+        <h2>{{ featured.title }}</h2>
+        <p>{{ featured.description }}</p>
+        <div class="tag-row">
+            {% for tag in featured.tags %}
+            <span class="tag-chip">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        <dl class="meta-grid">
+            <div>
+                <dt>Director</dt>
+                <dd>{{ featured.director }}</dd>
+            </div>
+            <div>
+                <dt>Runtime</dt>
+                <dd>{{ featured.runtime }}</dd>
+            </div>
+            <div>
+                <dt>Year</dt>
+                <dd>{{ featured.year }}</dd>
+            </div>
+            <div>
+                <dt>Status</dt>
+                <dd>{{ featured.status }}</dd>
+            </div>
+        </dl>
+        <a class="text-link" href="{{ url_for('pages.movie_detail', slug=featured.slug) }}">Open detail page</a>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Recent additions</p>
+            <h2>Recently added to your watchlist</h2>
+        </div>
+    </div>
+
+    <div class="card-grid three-up">
+        {% for movie in recent_movies %}
+        <article class="content-card accent-{{ movie.accent }}">
+            <p class="mini-label">{{ movie.year }}</p>
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.description }}</p>
+            <div class="tag-row compact">
+                {% for tag in movie.tags %}
+                <span class="tag-chip">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            <a class="text-link" href="{{ url_for('pages.movie_detail', slug=movie.slug) }}">View film notes</a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

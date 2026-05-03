@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-copy">
+        <p class="eyebrow">Member access</p>
+        <h1>Step back into your screening room.</h1>
+        <p class="lede">A dedicated auth page completes the visual system and gives the project a full app-like flow.</p>
+    </div>
+
+    <form class="auth-card" action="#" method="post">
+        <label>
+            <span>Email</span>
+            <input type="email" placeholder="neo@zion.example">
+        </label>
+        <label>
+            <span>Password</span>
+            <input type="password" placeholder="Enter password">
+        </label>
+        <button class="button button-primary" type="submit">Log in</button>
+        <a class="button button-secondary" href="{{ url_for('pages.signup') }}">Create account</a>
+        <p class="auth-note">Demo page only. No backend auth is wired yet.</p>
+    </form>
+</section>
+{% endblock %}

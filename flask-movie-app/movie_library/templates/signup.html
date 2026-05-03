@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-copy">
+        <p class="eyebrow">New account</p>
+        <h1>Start building your own watchlist vault.</h1>
+        <p class="lede">A matching signup surface completes the auth flow with the same visual language and spacing as the rest of the app.</p>
+    </div>
+
+    <form class="auth-card signup-card" action="#" method="post">
+        <div class="form-grid">
+            <label>
+                <span>First name</span>
+                <input type="text" placeholder="Thomas">
+            </label>
+            <label>
+                <span>Last name</span>
+                <input type="text" placeholder="Anderson">
+            </label>
+            <label class="form-span-2">
+                <span>Email</span>
+                <input type="email" placeholder="neo@zion.example">
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" placeholder="Create password">
+            </label>
+            <label>
+                <span>Favorite genre</span>
+                <input type="text" placeholder="Science fiction">
+            </label>
+        </div>
+        <button class="button button-primary" type="submit">Create account</button>
+        <p class="auth-note">Demo page only. No backend signup is wired yet.</p>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<section class="editor-layout">
+    <div class="editor-copy">
+        <p class="eyebrow">Editor view</p>
+        <h1>Add or refine a movie entry.</h1>
+        <p class="lede">This page is designed as a clear editorial workspace with strong spacing, field grouping, and a sticky summary card.</p>
+
+        <div class="glass-card form-preview accent-{{ movie.accent }}">
+            <p class="panel-label">Preview state</p>
+            <h2>{{ movie.title }}</h2>
+            <p>{{ movie.description }}</p>
+            <div class="tag-row compact">
+                {% for tag in movie.tags %}
+                <span class="tag-chip">{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <form class="editor-form" action="#" method="post">
+        <div class="form-grid">
+            <label>
+                <span>Title</span>
+                <input type="text" name="title" value="{{ movie.title }}">
+            </label>
+            <label>
+                <span>Director</span>
+                <input type="text" name="director" value="{{ movie.director }}">
+            </label>
+            <label>
+                <span>Release year</span>
+                <input type="number" name="year" value="{{ movie.year }}">
+            </label>
+            <label>
+                <span>Runtime</span>
+                <input type="text" name="runtime" value="{{ movie.runtime }}">
+            </label>
+            <label class="form-span-2">
+                <span>Tags</span>
+                <input type="text" name="tags" value="{{ movie.tags | join(', ') }}">
+            </label>
+            <label class="form-span-2">
+                <span>Cast</span>
+                <textarea name="cast" rows="4">{{ movie.cast | join('\n') }}</textarea>
+            </label>
+            <label class="form-span-2">
+                <span>Series</span>
+                <input type="text" name="series" value="{{ movie.series }}">
+            </label>
+            <label class="form-span-2">
+                <span>Description</span>
+                <textarea name="description" rows="6">{{ movie.description }}</textarea>
+            </label>
+            <label class="form-span-2">
+                <span>Video link</span>
+                <input type="url" name="video_link" value="{{ movie.video_link }}">
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button class="button button-primary" type="submit">Save movie</button>
+            <a class="button button-secondary" href="{{ url_for('pages.movies') }}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Library</p>
+        <h1>All movies</h1>
+    </div>
+    <a class="button button-primary" href="{{ url_for('pages.new_movie') }}">Add new title</a>
+</section>
+
+<section class="list-shell">
+    {% for movie in movies %}
+    <article class="movie-row accent-{{ movie.accent }}">
+        <div class="movie-row-primary">
+            <p class="mini-label">{{ movie.year }} / {{ movie.runtime }}</p>
+            <h2>{{ movie.title }}</h2>
+            <p>By {{ movie.director }}</p>
+        </div>
+        <div class="movie-row-meta">
+            <span class="status-pill">{{ movie.status }}</span>
+            <div class="tag-row compact">
+                {% for tag in movie.tags %}
+                <span class="tag-chip">{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="movie-row-actions">
+            <span class="rating-stars" aria-label="{{ movie.rating }} star rating">
+                {% for _ in range(movie.rating) %}&#9733;{% endfor %}{% for _ in range(5 - movie.rating) %}&#9734;{% endfor %}
+            </span>
+            <a class="text-link" href="{{ url_for('pages.movie_detail', slug=movie.slug) }}">View details</a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

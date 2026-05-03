@@ -1,0 +1,17 @@
+import os
+from dotenv import load_dotenv
+from flask import Flask
+from pymongo import MongoClient
+
+from movie_library.routes import pages
+
+load_dotenv()
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config["MONGODB_URI"] = os.getenv("MONGODB_URI")
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "fV_UUVswMv_aAkofiOP9AY0871P-HIObFsTtGhmFKak")
+    app.extensions["db"] = MongoClient(app.config["MONGODB_URI"]).get_default_database()
+    app.register_blueprint(pages)
+    return app
