@@ -1,7 +1,9 @@
-from flask import Flask, abort, render_template
+from flask import Flask, abort, flash, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-
+app.secret_key = "5Jt__NmTvTXIhrzNjprn3MV_G871XmV3V2-uj0rVADg"
+users = {}
 
 PROJECTS = [
     {
@@ -58,7 +60,63 @@ def find_project_by_slug(slug: str):
 
 @app.get("/")
 def index():
-    return render_template("index.html", page_title="Projects", projects=PROJECTS)
+    return render_template(
+        "index.html",
+        page_title="Projects",
+        projects=PROJECTS,
+        email=session.get("email"),
+    )
+
+
+@app.get("/protected")
+def protected():
+    email = session.get("email")
+    if not email:
+        abort(401)
+    return render_template("protected.html", page_title="Protected", email=email)
+
+
+@app.get("/signup")
+def signup_page():
+    return render_template("signup.html", page_title="Sign Up")
+
+
+@app.post("/signup")
+def signup():
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+    if not email or not password:
+        flash("Email and password are required.")
+        return redirect(url_for("signup_page"))
+    if email in users:
+        flash("An account with that email already exists.")
+        return redirect(url_for("signup_page"))
+    users[email] = generate_password_hash(password)
+    session["email"] = email
+    return redirect(url_for("protected"))
+
+
+@app.get("/login")
+def login_page():
+    return render_template("login.html", page_title="Log In")
+
+
+@app.post("/login")
+def login():
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+    hashed = users.get(email)
+    if not hashed or not check_password_hash(hashed, password):
+        flash("Invalid email or password.")
+        return redirect(url_for("login_page"))
+    session["email"] = email
+    return redirect(url_for("protected"))
+
+
+@app.post("/logout")
+def logout():
+    session.pop("email", None)
+    return redirect(url_for("index"))
 
 
 @app.get("/about")
@@ -77,6 +135,21 @@ def detail(slug: str):
     if not project:
         abort(404)
     return render_template("detail.html", page_title=project["title"], project=project)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html", page_title="Page Not Found"), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template("500.html", page_title="Server Error"), 500
+
+
+@app.errorhandler(401)
+def unauthorized(error):
+    return render_template("401.html", page_title="Unauthorized Access"), 401
 
 
 if __name__ == "__main__":

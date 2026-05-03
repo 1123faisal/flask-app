@@ -18,7 +18,23 @@
         <a href="{{ url_for('index') }}" class="{% if request.path == '/' %}active{% endif %}">Projects</a>
         <a href="{{ url_for('about') }}" class="{% if request.path == '/about' %}active{% endif %}">About</a>
         <a href="{{ url_for('contact') }}" class="{% if request.path == '/contact' %}active{% endif %}">Contact</a>
+        {% if session.get("email") %}
+        <a href="{{ url_for('protected') }}" class="{% if request.path == '/protected' %}active{% endif %}">Dashboard</a>
+        <form method="post" action="{{ url_for('logout') }}" style="display:contents">
+          <button type="submit" class="nav-logout">Sign out</button>
+        </form>
+        {% else %}
+        <a href="{{ url_for('login_page') }}" class="{% if request.path == '/login' %}active{% endif %}">Log in</a>
+        <a href="{{ url_for('signup_page') }}" class="{% if request.path == '/signup' %}active{% endif %}">Sign up</a>
+        {% endif %}
       </nav>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash-bar" role="alert">
+            {% for msg in messages %}<span>{{ msg }}</span>{% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
     </header>
     {% block content %}{% endblock %}
   </main>

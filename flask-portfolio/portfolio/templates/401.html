@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel error-shell auth-shell" aria-labelledby="unauth-title">
+  <p class="error-code">Error 401</p>
+  <h2 id="unauth-title">Unauthorized access</h2>
+  <p>
+    You need to sign in before opening this page. Once you are authenticated,
+    you can continue to the protected area.
+  </p>
+  <div class="error-actions">
+    <a class="btn-link btn-primary" href="{{ url_for('index') }}">Back to Projects</a>
+    <a class="btn-link btn-secondary" href="{{ url_for('contact') }}">Need Access?</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel error-shell" aria-labelledby="error-title">
+  <p class="error-code">Error 404</p>
+  <h2 id="error-title">This page does not exist.</h2>
+  <p>
+    The link may be outdated, or the page may have been moved. You can return to the projects page
+    or continue browsing from the About section.
+  </p>
+  <div class="error-actions">
+    <a class="btn-link btn-primary" href="{{ url_for('index') }}">Go to Projects</a>
+    <a class="btn-link btn-secondary" href="{{ url_for('about') }}">Read About</a>
+  </div>
+</section>
+{% endblock %}

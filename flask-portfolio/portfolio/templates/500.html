@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel error-shell" aria-labelledby="error-title">
+  <p class="error-code">Error 500</p>
+  <h2 id="error-title">Something went wrong on our side.</h2>
+  <p>
+    An unexpected server error occurred while loading this page. Please try again in a moment.
+    If the issue continues, use the contact page to report it.
+  </p>
+  <div class="error-actions">
+    <a class="btn-link btn-primary" href="{{ url_for('index') }}">Back to Projects</a>
+    <a class="btn-link btn-secondary" href="{{ url_for('contact') }}">Contact</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="auth-card panel" aria-labelledby="signup-title">
+  <div class="auth-left">
+    <p class="auth-badge">Create account</p>
+    <h2 id="signup-title">Get started for free</h2>
+    <p>Create an account to access the protected area and dashboard features.</p>
+
+    <form method="post" action="{{ url_for('signup') }}" class="auth-form" novalidate>
+      <div class="form-field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com"
+               autocomplete="email" required>
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Choose a strong password"
+               autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="form-submit">Create account →</button>
+    </form>
+
+    <p class="auth-switch">Already have an account?
+      <a href="{{ url_for('login_page') }}">Log in</a>
+    </p>
+  </div>
+
+  <aside class="auth-right" aria-hidden="true">
+    <p class="auth-right-label">Why sign up?</p>
+    <h3>Access the full portfolio experience</h3>
+    <p>Get access to the protected dashboard, saved projects, and direct contact features.</p>
+  </aside>
+</section>
+{% endblock %}

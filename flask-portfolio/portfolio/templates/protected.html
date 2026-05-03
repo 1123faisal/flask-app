@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel protected-shell" aria-labelledby="protected-title">
+  <p class="protected-badge">Protected Area</p>
+  <h2 id="protected-title">Welcome, {{ email }}</h2>
+  <p>
+    This page is restricted to signed-in users. Keep sensitive actions and private
+    data here, and route anonymous visitors to the unauthorized page.
+  </p>
+
+  <div class="protected-grid">
+    <article class="protected-card">
+      <h3>Private Notes</h3>
+      <p>Store account-level data, internal drafts, and user-specific dashboard content.</p>
+    </article>
+    <article class="protected-card">
+      <h3>Secure Actions</h3>
+      <p>Place update endpoints, admin tools, and billing workflows behind authentication.</p>
+    </article>
+  </div>
+
+  <div class="error-actions">
+    <a class="btn-link btn-primary" href="{{ url_for('index') }}">Go Home</a>
+    <a class="btn-link btn-secondary" href="{{ url_for('contact') }}">Contact Support</a>
+  </div>
+</section>
+{% endblock %}
