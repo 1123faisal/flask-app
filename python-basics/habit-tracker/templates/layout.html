@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "Habit Tracker" }}</title>
+    <link rel="stylesheet" href="{{ url_for("static",filename='css/main.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    {% block head_content %}{% endblock %}
+</head>
+<body class="page-{{ request.endpoint or 'unknown' }}">
+    <div class="ambient-glow" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="brand">
+                <a href="{{ url_for('habits.index') }}">Habit Flow</a>
+            </h1>
+            <p class="brand__tagline">Build consistency, one small win at a time.</p>
+
+            {% if request.endpoint != "add_habit" %}
+                <a class="button button--primary" href="{{ url_for('habits.add_habit') }}">+ Add Habit</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <section class="dates">
+    {% for date in date_range(selected_date) %}
+        <a
+            class="date-chip {% if date == selected_date %}date-chip--active{% endif %}"
+            href="{{ url_for("habits.index", date=date) }}"
+            {% if date == selected_date %}aria-current="date"{% endif %}
+        >
+            <time datetime="{{ date }}">
+                <span class="date-chip__day">{{ date.strftime("%a") }}</span>
+                <span class="date-chip__number">{{ date.strftime("%d") }}</span>
+                <span class="date-chip__month">{{ date.strftime("%b") }}</span>
+            </time>
+        </a>
+    {% endfor %}
+    </section>
+
+    <main class="main">
+        <div class="main__inner">
+            {% block main_content %}{% endblock %}
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

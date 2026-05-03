@@ -1,0 +1,48 @@
+{% extends "layout.html" %} {% block main_content %}
+
+<section class="panel panel--wide">
+  <div class="panel__header">
+    <h2>Today&rsquo;s Habits</h2>
+    <p>
+      {{ habits|length }} tracked
+      <span class="habit-meta">{{ completions|length }} completed</span>
+      <span class="habit-meta">{{ habits|length - completions|length }} pending</span>
+    </p>
+  </div>
+
+  {% if habits %}
+  <ul class="habit-list" aria-label="Habit list">
+    {% for habit in habits %} 
+    {% set completed = habit["_id"] in completions %} 
+    {% if completed %}
+    <li class="habit-item habit-item--completed" style="--item-index: {{ loop.index0 }}">
+      <span class="habit-item__number">{{ "%02d"|format(loop.index) }}</span>
+      <p class="habit-item__name">{{ habit['name'] }}</p>
+      <span class="status-badge status-badge--completed">Completed</span>
+    </li>
+    {% else %}
+
+    <li class="habit-item habit-item--pending" style="--item-index: {{ loop.index0 }}">
+      <span class="habit-item__number">{{ "%02d"|format(loop.index) }}</span>
+
+      <form class="habit-action" action="/complete" method="post">
+        <input type="hidden" name="habitId" value="{{ habit['_id'] }}" />
+        <input type="hidden" name="date" value="{{ selected_date }}" />
+        <p class="habit-item__name">{{ habit['name'] }}</p>
+        <button class="status-badge status-badge--pending" type="submit">Mark complete</button>
+      </form>
+    </li>
+
+    {% endif %} {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <h3>No habits yet</h3>
+    <p>Start with one tiny daily action and build momentum over time.</p>
+    <a class="button button--primary" href="{{ url_for('habits.add_habit') }}"
+      >Create your first habit</a
+    >
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

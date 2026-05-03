@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block main_content %}
+    <section class="panel panel--form">
+        <div class="panel__header">
+            <h2>Add a New Habit</h2>
+            <p>Keep it short, clear, and easy to repeat daily.</p>
+        </div>
+
+        <form class="form" action="/add" method="post">
+            <label for="habit">Habit name</label>
+            <textarea id="habit" name="habit" placeholder="Example: Read 10 pages before bed" required minlength="2" maxlength="120"></textarea>
+
+            <div class="form__actions">
+                <button class="button button--primary" type="submit">Save Habit</button>
+                <a class="button button--ghost" href="{{ url_for('habits.index') }}">Cancel</a>
+            </div>
+        </form>
+    </section>
+{% endblock %}
